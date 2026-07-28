@@ -30,12 +30,17 @@ const petSize = 126;
 const collisionDistance = 92;
 const collisionCooldownMs = 1300;
 const mouseIdleDelayMs = 120;
+const chantText = 'wyc是我儿子';
+const chantIntervalMs = 1000;
 let paused = false;
 let lastTime = performance.now();
 let activeDrag = null;
 let mouseInsidePets = 0;
 let mouseLeaveTimer = null;
 const pets = people.map((fileName, index) => createPet(fileName, index));
+setInterval(() => {
+  for (const pet of pets) speak(pet, chantText, 900);
+}, chantIntervalMs);
 
 function createPet(fileName, index) {
   const pet = document.createElement('div');
