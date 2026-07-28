@@ -5,13 +5,13 @@ let mainWindow;
 
 function createWindow() {
   const primaryDisplay = screen.getPrimaryDisplay();
-  const { width, height } = primaryDisplay.workAreaSize;
+  const { x, y, width, height } = primaryDisplay.workArea;
 
   mainWindow = new BrowserWindow({
     width,
-    height: 220,
-    x: 0,
-    y: Math.max(0, height - 220),
+    height,
+    x,
+    y,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -26,7 +26,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.setIgnoreMouseEvents(false);
+  mainWindow.setIgnoreMouseEvents(true, { forward: true });
   mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
@@ -41,6 +41,10 @@ function createWindow() {
 
   ipcMain.on('show-context-menu', () => {
     menu.popup({ window: mainWindow });
+  });
+
+  ipcMain.on('set-mouse-events', (_event, shouldIgnore) => {
+    mainWindow.setIgnoreMouseEvents(Boolean(shouldIgnore), { forward: true });
   });
 }
 

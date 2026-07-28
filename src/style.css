@@ -19,12 +19,19 @@ body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
 .pet {
   position: absolute;
   left: 0;
-  bottom: 4px;
+  top: 0;
   width: 126px;
   height: 126px;
-  transform: translateX(var(--x, 0px)) scaleX(var(--dir, 1));
+  transform: translate(var(--x, 0px), var(--y, 0px)) scaleX(var(--dir, 1));
   pointer-events: auto;
+  cursor: grab;
   filter: drop-shadow(0 8px 7px rgba(0, 0, 0, .28));
+  touch-action: none;
+}
+.pet.dragging {
+  cursor: grabbing;
+  filter: drop-shadow(0 12px 10px rgba(0, 0, 0, .36));
+  z-index: 100;
 }
 .pet.paused .body,
 .pet.paused .arm,
@@ -123,21 +130,24 @@ body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
 }
 .bubble {
   position: absolute;
-  left: 35px;
+  left: 50%;
   bottom: 115px;
+  max-width: 220px;
   padding: 6px 12px;
   min-width: 44px;
   border-radius: 999px;
   background: #fff;
   color: #111;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 800;
   text-align: center;
+  white-space: nowrap;
   box-shadow: 0 4px 12px rgba(0,0,0,.18);
   opacity: 0;
-  transform: scaleX(var(--dir, 1)) translateY(8px);
+  transform: scaleX(var(--dir, 1)) translate(-50%, 8px);
   transition: opacity .18s, transform .18s;
   z-index: 10;
+  pointer-events: none;
 }
 .bubble::after {
   content: "";
@@ -150,7 +160,7 @@ body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
 }
 .pet.talking .bubble {
   opacity: 1;
-  transform: scaleX(var(--dir, 1)) translateY(0);
+  transform: scaleX(var(--dir, 1)) translate(-50%, 0);
 }
 .ground {
   position: absolute;
