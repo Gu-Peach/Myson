@@ -1,0 +1,51 @@
+{
+  "name": "monkey-desk-pets",
+  "version": "1.0.0",
+  "description": "照片人物猴群桌宠",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win portable --x64",
+    "build:mac": "electron-builder --mac dir --arm64"
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.local.monkeydeskpets",
+    "productName": "MonkeyDeskPets",
+    "files": [
+      "src/**/*",
+      "assets/people/.gitkeep",
+      "package.json",
+      "README.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "MonkeyDeskPets.exe"
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    }
+  }
+}
